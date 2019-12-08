@@ -17,22 +17,22 @@ public class FileRW {
 
 
     // todo write to file method
-    public boolean saveBase(HashMap<String, String> base) {
+    public static boolean saveBase(HashMap<String, String> base) {
         return writeToFile(fromHashMap(base));
     }
 
     // todo read from file method
     // string
 
-    public HashMap<String, String> readBase() {
+    public static HashMap<String, String> readBase() {
         return toHashMap(readFromFile());
     }
 
 
     //Helper methods
 
-
-    private String fromHashMap(HashMap<String, String> base) {
+    //write
+    private static String fromHashMap(HashMap<String, String> base) {
         StringBuilder sb = new StringBuilder();
 
         for (Map.Entry<String, String> entry : base.entrySet()) {
@@ -42,7 +42,7 @@ public class FileRW {
         return sb.toString();
     }
 
-    private boolean writeToFile(String str) {
+    private static boolean writeToFile(String str) {
         try {
             FileWriter writer = new FileWriter(FILE_NAME);
             writer.write(str);
@@ -55,7 +55,8 @@ public class FileRW {
         return true;
     }
 
-    private String readFromFile() {
+    //read
+    private static String readFromFile() {
         try {
             FileReader reader = new FileReader(FILE_NAME);
             Scanner scanner = new Scanner(reader);
@@ -63,6 +64,9 @@ public class FileRW {
             while (scanner.hasNext()) {
                 sb.append(scanner.nextLine());
             }
+            System.out.printf("TEST !!!! : " + reader.ready());
+            scanner.close();
+            System.out.printf("TEST !!!! : " + reader.ready());
             return sb.toString();
         } catch (IOException ioe) {
             System.out.println("Ошибка чтения файла");
@@ -71,12 +75,14 @@ public class FileRW {
         return null;
     }
 
-    private HashMap<String, String> toHashMap(String str) {
-        HashMap <String,String> base = new HashMap<>();
-        String[] wordPairs = str.split(LINE_DIVIDER);
-        for(String wp: wordPairs){
-            String[] words = wp.split(WORD_DIVIDER);
-            base.put(words[0],words[1]);
+    private static HashMap<String, String> toHashMap(String str) {
+        HashMap<String, String> base = new HashMap<>();
+        if (str!=null&&!str.isEmpty()) {
+            String[] wordPairs = str.split(LINE_DIVIDER);
+            for (String wp : wordPairs) {
+                String[] words = wp.split(WORD_DIVIDER);
+                base.put(words[0], words[1]);
+            }
         }
         return base;
     }
