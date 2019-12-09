@@ -27,11 +27,11 @@ public class Dictionary {
         String userInput;
         String translation;
         do {
-            System.out.println("\"" + MENU_TRANSLATE + "\" - перевод слова (рус -> eng");
-            System.out.println("\"" + MENU_ADD_WORD + "\" - добавить перевод слова (рус -> eng)");
+            System.out.println("\"" + MENU_TRANSLATE + "\" - перевод слова (рус -> eng)");
+            System.out.println("\"" + MENU_ADD_WORD + "\" - добавить слово в словарь");
             System.out.println("\"" + MENU_REPLACE_WORD + "\" - заменить перевод слова");
-            System.out.println("\"" + MENU_REMOVE_WORD + "\" - удалить перевод слова");
-            System.out.println("\"" + MENU_SHOW_WORD_LIST + "\" - удалить перевод слова");
+            System.out.println("\"" + MENU_REMOVE_WORD + "\" - удалить слово из словоря");
+            System.out.println("\"" + MENU_SHOW_WORD_LIST + "\" - вывести весь список слов");
 
             userInput = scanner.nextLine().trim().toLowerCase();
             switch (userInput) {
@@ -51,10 +51,10 @@ public class Dictionary {
                     userInput = scanner.nextLine().trim().toLowerCase();
                     System.out.println("Введите перевод слова на английский и нажмите ввод");
                     translation = scanner.nextLine().trim().toLowerCase();
-                    if (addWord(userInput, translation) != null) {
+                    if (addWord(userInput, translation) == null) {
                         System.out.println("Слово " + userInput + WORD_DIVIDER + translation + " добавлено в словарь");
                     } else {
-                        System.out.println("Слово " + userInput + "не добавлено в словарь");
+                        System.out.println("Слово " + userInput + " не добавлено в словарь");
                     }
                     break;
                 case MENU_REPLACE_WORD:
@@ -62,9 +62,9 @@ public class Dictionary {
                     userInput = scanner.nextLine().trim().toLowerCase();
                     System.out.println("Перевод слова " + getTranslation(userInput) + " введите замену:");
                     translation = scanner.nextLine().trim();
-                    if(replaceWord(userInput,translation)!=null){
+                    if (replaceWord(userInput, translation) != null) {
                         System.out.println("Успешно заменено");
-                    }else {
+                    } else {
                         System.out.println("Что то пошло не так");
                     }
                     break;
@@ -78,7 +78,7 @@ public class Dictionary {
                     }
                     break;
                 case MENU_SHOW_WORD_LIST:
-                    listAllWords();
+                    System.out.println(listAllWords());
                     break;
                 default:
                     userInput = "";
@@ -122,7 +122,7 @@ public class Dictionary {
      * @return - старое значение перевода
      */
     private String replaceWord(String key, String value) {
-        return base.put(key, value);
+        return base.replace(key, value);
     }
 
     private String listAllWords() {

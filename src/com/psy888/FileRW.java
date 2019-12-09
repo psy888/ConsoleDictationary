@@ -11,7 +11,7 @@ import java.util.Scanner;
 //File read write
 public class FileRW {
     private static final String FILE_NAME = "base.txt";
-    private static final String LINE_DIVIDER = "\n";
+    private static final String LINE_DIVIDER = ";";
     private static final String WORD_DIVIDER = "-";
 //    private byte[] buf = new byte[8];
 
@@ -43,6 +43,7 @@ public class FileRW {
     }
 
     private static boolean writeToFile(String str) {
+        //todo make file and dir
         try {
             FileWriter writer = new FileWriter(FILE_NAME);
             writer.write(str);
@@ -64,9 +65,7 @@ public class FileRW {
             while (scanner.hasNext()) {
                 sb.append(scanner.nextLine());
             }
-            System.out.printf("TEST !!!! : " + reader.ready());
             scanner.close();
-            System.out.printf("TEST !!!! : " + reader.ready());
             return sb.toString();
         } catch (IOException ioe) {
             System.out.println("Ошибка чтения файла");
