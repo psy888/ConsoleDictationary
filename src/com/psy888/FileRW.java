@@ -69,7 +69,7 @@ public class FileRW {
     //read
     private static String readFromFile() {
         File dst = new File(FILE_NAME);
-        if(!dst.exists())
+        if(dst.exists()){
             try {
                 FileReader reader = new FileReader(FILE_NAME);
                 Scanner scanner = new Scanner(reader);
