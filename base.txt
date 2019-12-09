@@ -1,0 +1,13 @@
+привет-hello;
+я-I am;
+ты-you;
+они-they;
+мы-we;
+сегодня-today;
+завтра-tomorrow;
+утро-morning;
+вечер-evening;
+собака-dog;
+кошка-cat;
+ручка-pen;
+стол-table;

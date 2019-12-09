@@ -1,5 +1,6 @@
 package com.psy888;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +19,15 @@ public class FileRW {
 
     // todo write to file method
     public static boolean saveBase(HashMap<String, String> base) {
+        File dst = new File(FILE_NAME);
+        if(!dst.exists()){
+            try {
+                dst.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Невозможно создать файл базы");
+                e.printStackTrace();
+            }
+        }
         return writeToFile(fromHashMap(base));
     }
 
@@ -58,18 +68,21 @@ public class FileRW {
 
     //read
     private static String readFromFile() {
-        try {
-            FileReader reader = new FileReader(FILE_NAME);
-            Scanner scanner = new Scanner(reader);
-            StringBuilder sb = new StringBuilder();
-            while (scanner.hasNext()) {
-                sb.append(scanner.nextLine());
+        File dst = new File(FILE_NAME);
+        if(!dst.exists())
+            try {
+                FileReader reader = new FileReader(FILE_NAME);
+                Scanner scanner = new Scanner(reader);
+                StringBuilder sb = new StringBuilder();
+                while (scanner.hasNext()) {
+                    sb.append(scanner.nextLine());
+                }
+                scanner.close();
+                return sb.toString();
+            } catch (IOException ioe) {
+                System.out.println("Ошибка чтения файла");
+                ioe.printStackTrace();
             }
-            scanner.close();
-            return sb.toString();
-        } catch (IOException ioe) {
-            System.out.println("Ошибка чтения файла");
-            ioe.printStackTrace();
         }
         return null;
     }
